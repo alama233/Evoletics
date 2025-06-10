@@ -1,0 +1,14 @@
+python -c "from app.utils.bayes_utils import predict_bayes; print(predict_bayes([{'session':{'velocity':85}}]))" 
+python -c "import app.routers.bayes_predict as bp; print(bp.bayes_endpoint)" 
+
+$body = @{
+    history = @(
+        @{
+            session = @{
+                velocity = 88
+            }
+        }
+    )
+} | ConvertTo-Json -Depth 3
+
+Invoke-RestMethod -Uri "https://evoletics-backend-8c703d57094e.herokuapp.com/predict/bayes/" -Method POST -Body $body -ContentType "application/json" 
